@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="slides-format" content="viewport" />
+  <title>CarbonLoop Pitch Deck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --color-bg: #101418;
+      --color-bg-deep: #0a0d10;
+      --color-surface: #182028;
+      --color-text: #f3f7f8;
+      --color-text-secondary: #d3dde0;
+      --color-text-muted: #98aab0;
+      --color-accent-1: #2ec27e;
+      --color-accent-2: #56ccf2;
+      --color-accent-3: #d9f99d;
+      --color-glass-bg: rgba(255,255,255,0.06);
+      --color-glass-border: rgba(255,255,255,0.10);
+      --color-vignette: rgba(0,0,0,0.42);
+      --font-display: 'Archivo Black', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+  </style>
+  <style>
+    :root { --color-bg: #101418; --color-text: #f3f7f8; --glow-color-rgb: 46,194,126; }
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{background:var(--color-bg);margin:0}
+    body{font-family:'DM Sans',sans-serif;color:var(--color-text);overflow:hidden;height:100vh;width:100vw}
+    .deck{width:100vw;height:100vh;position:relative}
+    .slide{position:absolute;top:0;left:0;width:100%;height:100%;background:var(--color-bg);display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transform:scale(.96);transition:opacity .7s ease,transform .7s ease;pointer-events:none;overflow:hidden}
+    .slide.active{opacity:1;transform:scale(1);pointer-events:all}
+    .slide>.content{position:relative;z-index:2;width:100%;max-width:1150px;padding:clamp(1.5rem,4vw,4rem)}
+    .nav-controls{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:16px;z-index:100;background:rgba(255,255,255,.07);backdrop-filter:blur(10px);padding:10px 22px;border-radius:40px;border:1px solid rgba(255,255,255,.1)}
+    .nav-btn{width:40px;height:40px;border:none;background:rgba(255,255,255,.07);color:#2ec27e;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
+    .slide-dots{display:flex;gap:8px}.slide-dots .dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.18);cursor:pointer;transition:.3s}.slide-dots .dot.active{background:#2ec27e;transform:scale(1.25)}
+    .slide-counter{font-size:.8rem;color:#98aab0;min-width:44px;text-align:center}
+    .reveal{opacity:0;transform:translateY(20px)}
+    .gradient-mesh{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+    .blob{position:absolute;border-radius:50%;filter:blur(80px);animation:float-slow 12s ease-in-out infinite}
+    .blob:nth-child(2){animation:float-drift 16s ease-in-out infinite}
+    .blob:nth-child(3){animation:float-slow 20s ease-in-out infinite reverse}
+    @keyframes float-slow{0%{transform:translate(0,0) scale(1)}25%{transform:translate(50px,-40px) scale(1.1)}50%{transform:translate(-30px,40px) scale(.92)}75%{transform:translate(40px,20px) scale(1.05)}100%{transform:translate(0,0) scale(1)}}
+    @keyframes float-drift{0%{transform:translate(0,0) scale(1)}33%{transform:translate(-40px,-50px) scale(1.12)}66%{transform:translate(35px,25px) scale(.9)}100%{transform:translate(0,0) scale(1)}}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+    .slide::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");background-repeat:repeat;background-size:256px 256px;opacity:.03;mix-blend-mode:overlay}
+    .slide::after{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at center, transparent 50%, var(--color-vignette) 100%)}
+    .card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(10px);border-radius:22px;padding:1.25rem 1.3rem;box-shadow:0 10px 30px rgba(0,0,0,.15)}
+    .pill{display:inline-flex;align-items:center;gap:.5rem;padding:.45rem .8rem;border-radius:999px;background:rgba(46,194,126,.14);border:1px solid rgba(46,194,126,.25);color:#d9f99d;font-size:.85rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+    .logo-hero{max-height:95px;max-width:280px;object-fit:contain;margin:0 auto 1.2rem;animation:float 3s ease-in-out infinite;filter:drop-shadow(0 8px 24px rgba(0,0,0,.25))}
+    .kpi{font-family:'Archivo Black',sans-serif;font-size:2rem;line-height:1;color:#56ccf2}
+    .small{font-size:.95rem;color:#d3dde0;line-height:1.45}
+    .section-title{font-family:'Archivo Black',sans-serif;font-size:clamp(2rem,4vw,3rem);line-height:1.05;margin:0 0 1rem}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+    .flow-img{width:100%;max-width:920px;border-radius:24px;border:1px solid rgba(255,255,255,.1);box-shadow:0 20px 50px rgba(0,0,0,.25)}
+    .metric-box{padding:1rem 1.1rem;border-radius:20px;background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.1)}
+    .bullet-list{display:flex;flex-direction:column;gap:.9rem;margin-top:1rem}
+    .bullet-item{display:flex;gap:.85rem;align-items:flex-start;padding:1rem 1rem;border-left:4px solid #2ec27e;background:rgba(255,255,255,.05);border-radius:16px}
+    .bullet-icon{font-size:1.2rem;line-height:1.2}
+    .timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:1rem}
+    .timeline .card{min-height:210px}
+    .table-like{display:grid;grid-template-columns:1.2fr .9fr .9fr .9fr;gap:.75rem;margin-top:1rem}
+    .table-like .head{font-size:.82rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#98aab0;padding:.2rem .4rem}
+    .table-like .cell{padding:1rem;border-radius:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}
+    .slide-1 .content,.slide-12 .content{text-align:center}
+  </style>
+</head>
+<body>
+<div class="mouse-spotlight" style="position:fixed;inset:0;z-index:99;pointer-events:none;"></div>
+<div class="deck">
+  <div class="slide slide-1 active" data-slide="1">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:500px;height:500px;top:-120px;right:-100px;background:#2ec27e;opacity:.15"></div>
+      <div class="blob" style="width:320px;height:320px;bottom:-90px;left:-70px;background:#56ccf2;opacity:.12"></div>
+      <div class="blob" style="width:220px;height:220px;top:42%;left:15%;background:#d9f99d;opacity:.10"></div>
+    </div>
+    <canvas class="particle-canvas" style="position:absolute;inset:0;z-index:1"></canvas>
+    <div class="content">
+      <img class="logo-hero reveal" src="https://user-gen-media-assets.s3.amazonaws.com/gpt4o_images/d43616ff-418f-4a58-9935-71abe139b838.png" alt="CarbonLoop Logo">
+      <div class="pill reveal" style="justify-content:center;margin:0 auto 1rem">Pitch Deck · Climate Biotech</div>
+      <h1 class="reveal" style="font-family:'Archivo Black',sans-serif;font-size:clamp(2.7rem,6vw,5.2rem);line-height:.95;margin:0;background:linear-gradient(135deg,#2ec27e,#56ccf2,#d9f99d);-webkit-background-clip:text;background-clip:text;color:transparent;">CarbonLoop</h1>
+      <p class="reveal" style="font-size:clamp(1rem,1.7vw,1.5rem);color:#d3dde0;max-width:820px;margin:1rem auto 0;">Aus Industrie-CO₂ werden Bioplastik, Proteine und Pigmente – direkt am Standort des Kunden.</p>
+    </div>
+  </div>
+
+  <div class="slide slide-2" data-slide="2">
+    <div class="gradient-mesh"><div class="blob" style="width:360px;height:360px;top:-80px;right:-60px;background:#2ec27e;opacity:.08"></div><div class="blob" style="width:240px;height:240px;bottom:-50px;left:-40px;background:#56ccf2;opacity:.07"></div></div>
+    <div class="content">
+      <h2 class="section-title reveal">1. Problem</h2>
+      <div class="grid-2">
+        <div class="card reveal"><div class="kpi">CO₂ kostet</div><p class="small">Industrieunternehmen stehen unter Druck, Emissionen zu reduzieren und steigende CO₂-Kosten sowie ESG-Anforderungen zu managen.[web:281][web:391]</p></div>
+        <div class="card reveal"><div class="kpi">Rohstoffe fehlen</div><p class="small">Gleichzeitig wächst die Nachfrage nach nachhaltigen Materialien wie Bioplastik, alternativen Proteinen und natürlichen Pigmenten.[web:391][web:414]</p></div>
+      </div>
+      <div class="bullet-list">
+        <div class="bullet-item reveal"><div class="bullet-icon">🏭</div><div>Abgase sind heute meist ein Kostenfaktor statt eine Wertquelle.[web:391]</div></div>
+        <div class="bullet-item reveal"><div class="bullet-icon">♻️</div><div>Viele Lösungen reduzieren Emissionen, schaffen aber keine direkte lokale Wertschöpfung.[web:412][web:414]</div></div>
+        <div class="bullet-item reveal"><div class="bullet-icon">📈</div><div>Es entsteht eine Lücke zwischen Dekarbonisierungspflicht und Bedarf an biobasierten Produkten.[web:409][web:415]</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide slide-3" data-slide="3">
+    <div class="gradient-mesh"><div class="blob" style="width:380px;height:380px;top:-70px;right:-90px;background:#56ccf2;opacity:.08"></div><div class="blob" style="width:260px;height:260px;bottom:-60px;left:-30px;background:#2ec27e;opacity:.07"></div></div>
+    <div class="content">
+      <h2 class="section-title reveal">2. Lösung</h2>
+      <div class="grid-2" style="align-items:center;">
+        <div>
+          <div class="bullet-list">
+            <div class="bullet-item reveal"><div class="bullet-icon">🧪</div><div>CarbonLoop installiert modulare Photobioreaktoren direkt beim Industriekunden.</div></div>
+            <div class="bullet-item reveal"><div class="bullet-icon">🌿</div><div>Cyanobakterien nutzen CO₂ aus Industrieabgasen und wandeln es in Biomasse um.[web:410][web:414]</div></div>
+            <div class="bullet-item reveal"><div class="bullet-icon">🏗️</div><div>Die Biomasse wird zentral in der Bioraffinerie zu PHA, Proteinen und Pigmenten verarbeitet.[web:332][web:414]</div></div>
+          </div>
+        </div>
+        <div class="card reveal">
+          <img class="flow-img" src="https://user-gen-media-assets.s3.amazonaws.com/gpt4o_images/e4c1955d-8711-4b5d-b22f-852ba345a9fb.png" alt="Flowchart Geschäftsmodell">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide slide-4" data-slide="4">
+    <div class="gradient-mesh"><div class="blob" style="width:330px;height:330px;top:-80px;right:-80px;background:#d9f99d;opacity:.09"></div><div class="blob" style="width:220px;height:220px;bottom:-40px;left:-30px;background:#56ccf2;opacity:.06"></div></div>
+    <div class="content">
+      <h2 class="section-title reveal">3. Technologie</h2>
+      <div class="grid-3">
+        <div class="card reveal"><h3>Modularer Reaktor</h3><p class="small">30-, 100- und 400-m³-Module erlauben Pilotierung und spätere Skalierung am Standort.</p></div>
+        <div class="card reveal"><h3>Hybridlicht</h3><p class="small">Tageslicht wird priorisiert; LED schaltet sich nur sensorabhängig zu, um Stromkosten zu senken.[web:374][web:384]</p></div>
+        <div class="card reveal"><h3>Multiprodukt-Stamm</h3><p class="small">Ein Stamm erzeugt mehrere Wertströme: PHA, Proteine und Pigmente.[web:332][web:77]</p></div>
+      </div>
+      <div class="grid-3" style="margin-top:1rem;">
+        <div class="card reveal"><h3>Monitoring</h3><p class="small">CarbonLoop steuert Licht, CO₂-Eintrag, Temperatur und Ernteintervalle digital.[web:374]</p></div>
+        <div class="card reveal"><h3>Bioraffinerie</h3><p class="small">Die abgezogene Biomasse wird separiert und weiterveredelt zu marktfähigen Produkten.</p></div>
+        <div class="card reveal"><h3>Vor-Ort-Modell</h3><p class="small">CO₂-Nutzung direkt am Industrieort reduziert Transport und erhöht den Kundennutzen.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide slide-5" data-slide="5">
+    <div class="gradient-mesh"><div class="blob" style="width:360px;height:360px;top:-90px;right:-70px;background:#2ec27e;opacity:.08"></div><div class="blob" style="width:260px;height:260px;bottom:-60px;left:-40px;background:#d9f99d;opacity:.07"></div></div>
+    <div class="content">
+      <h2 class="section-title reveal">4. Geschäftsmodell</h2>
+      <div class="grid-2">
+        <div class="card reveal">
+          <h3>Wer zahlt?</h3>
+          <div class="bullet-list">
+            <div class="bullet-item"><div class="bullet-icon">🏭</div><div>Industriekunde least den Reaktor.</div></div>
+            <div class="bullet-item"><div class="bullet-icon">🛠️</div><div>Kunde zahlt Wartung, Monitoring und Schulungen.</div></div>
+            <div class="bullet-item"><div class="bullet-icon">🤝</div><div>Optional erhält der Kunde einen Anteil am Produktverkauf.</div></div>
+          </div>
+        </div>
+        <div class="card reveal">
+          <h3>Wie verdient CarbonLoop Geld?</h3>
+          <div class="bullet-list">
+            <div class="bullet-item"><div class="bullet-icon">💶</div><div>Leasing der Reaktormodule.</div></div>
+            <div class="bullet-item"><div class="bullet-icon">🔧</div><div>Serviceerlöse aus Wartung, Betrieb und Schulung.[web:344][web:352]</div></div>
+            <div class="bullet-item"><div class="bullet-icon">🧬</div><div>Verkauf von PHA, Proteinen und Pigmenten an Industriekunden.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide slide-6" data-slide="6">
+    <div class="gradient-mesh"><div class="blob" style="width:330px;height:330px;top:-80px;right:-80px;background:#56ccf2;opacity:.08"></div><div class="blob" style="width:240px;height:240px;bottom:-50px;left:-30px;background:#2ec27e;opacity:.07"></div></div>
+    <div class="content">
+      <h2 class="section-title reveal">5. Kunden & Märkte</h2>
+      <div class="grid-2">
+        <div class="card reveal">
+          <h3>Reaktor-Kunden</h3>
+          <p class="small">Primäre Zielgruppe sind CO₂-intensive Standorte wie Zement, Chemie und Metallindustrie, die Emissionen reduzieren und ESG-Ziele erfüllen müssen.[web:281][web:391]</p>
+        </div>
+        <div class="card reveal">
+          <h3>Produkt-Abnehmer</h3>
+          <p class="small">Sekundäre Zielgruppen sind Kunststoffhersteller, Tierfutter-/Aquakultur-Unternehmen und Kosmetikhersteller für Pigmente.[web:332][web:414]</p>
+        </div>
+      </div>
+      <div class="grid-3" style="margin-top:1rem;">
+        <div class="metric-box reveal"><div class="kpi">B2B</div><div class="small">Industriekunden least Reaktor</div></div>
+        <div class="metric-box reveal"><div class="kpi">2-seitig</div><div class="small">Inputkunde + Produktabnehmer</div></div>
+        <div class="metric-box reveal"><div class="kpi">CCU + Bioökonomie</div><div class="small">Schnittstelle aus Dekarbonisierung und Materialmarkt</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide slide-7" data-slide="7">
+    <div class="gradient-mesh"><div class="blob" style="width:330px;height:330px;top:-60px;right:-60px;background:#d9f99d;opacity:.08"></div><div class="blob" style="width:240px;height:240px;bottom:-50px;left:-20px;background:#56ccf2;opacity:.07"></div></div>
+    <div class="content">
+      <h2 class="section-title reveal">6. Wettbewerbsvorteil</h2>
+      <div class="table-like">
+        <div class="head reveal">Kriterium</div><div class="head reveal">CarbonLoop</div><div class="head reveal">CCS klassisch</div><div class="head reveal">Bioprodukte klassisch</div>
+        <div class="cell reveal">CO₂ direkt am Standort</div><div class="cell reveal">Ja</div><div class="cell reveal">Ja, aber ohne Produktwert</div><div class="cell reveal">Nein</div>
+        <div class="cell reveal">Mehrere Wertprodukte</div><div class="cell reveal">PHA + Proteine + Pigmente</div><div class="cell reveal">Nein</div><div class="cell reveal">Oft nur ein Produkt</div>
+        <div class="cell reveal">Wiederkehrende Erlöse</div><div class="cell reveal">Leasing + Service + Produkte</div><div class="cell reveal">Projektbasiert</div><div class="cell reveal">Produktverkauf</div>
+        <div class="cell reveal">Modulare Skalierung</div><div class="cell reveal">Ja</div><div class="cell reveal">Eher standortgroß</div><div class="cell reveal">Produktionswerk zentral</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide slide-8" data-slide="8">
+    <div class="gradient-mesh"><div class="blob" style="width:350px;height:350px;top:-70px;right:-90px;background:#2ec27e;opacity:.09"></div><div class="blob" style="width:260px;height:260px;bottom:-50px;left:-30px;background:#56ccf2;opacity:.07"></div></div>
+    <div class="content">
+      <h2 class="section-title reveal">7. Wirtschaftlichkeit</h2>
+      <div class="grid-3">
+        <div class="metric-box reveal"><div class="kpi">3,03 Mio. €</div><div class="small">Startinvestition für Aufbau von Pilotanlage, Bioraffinerie und Infrastruktur.[code_file:283]</div></div>
+        <div class="metric-box reveal"><div class="kpi">650 Tsd. €</div><div class="small">Fixkosten pro Jahr im schlanken Startmodell mit Minimalteam.[code_file:299]</div></div>
+        <div class="metric-box reveal"><div class="kpi">396 €/t CO₂</div><div class="small">Kundenvorteil aus CO₂-Einsparung plus 30 % Produktbeteiligung.[code_file:299]</div></div>
+      </div>
+      <div class="grid-3" style="margin-top:1rem;">
+        <div class="card reveal"><h3>Kleiner Reaktor</h3><p class="small">Deckungsbeitrag mit Service: ca. 109.940 € pro Jahr.[code_file:299]</p></div>
+        <div class="card reveal"><h3>Mittlerer Reaktor</h3><p class="small">Deckungsbeitrag mit Service: ca. 269.350 € pro Jahr; wirtschaftlicher Standardfall.[code_file:299]</p></div>
+        <div class="card reveal"><h3>Großer Reaktor</h3><p class="small">Deckungsbeitrag mit Service: ca. 1.216.750 € pro Jahr.[code_file:299]</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide slide-9" data-slide="9">
+    <div class="gradient-mesh"><div class="blob" style="width:350px;height:350px;top:-70px;right:-70px;background:#56ccf2;opacity:.08"></div><div class="blob" style="width:240px;height:240px;bottom:-50px;left:-30px;background:#d9f99d;opacity:.07"></div></div>
+    <div class="content">
+      <h2 class="section-title reveal">8. Skalierung bis Gewinn</h2>
+      <div class="timeline">
+        <div class="card reveal"><h3>Jahr 1</h3><p class="small">1x mittlerer Reaktor. Fokus auf Pilotkunde, Referenz und Datensammlung. Ergebnis noch negativ.</p></div>
+        <div class="card reveal"><h3>Jahr 2</h3><p class="small">2x mittlere Reaktoren. Wiederholbares Betriebsmodell, erste Serviceerlöse skalieren mit.</p></div>
+        <div class="card reveal"><h3>Jahr 3</h3><p class="small">3x mittlere + 1x großer Reaktor. Ergebnis wird im schlanken Modell positiv.[code_file:299]</p></div>
+        <div class="card reveal"><h3>Jahr 4</h3><p class="small">4x mittlere + 2x große Reaktoren. Stark steigender Gewinn und robuste Skalierung.[code_file:299]</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide slide-10" data-slide="10">
+    <div class="gradient-mesh"><div class="blob" style="width:350px;height:350px;top:-70px;right:-80px;background:#2ec27e;opacity:.08"></div><div class="blob" style="width:250px;height:250px;bottom:-40px;left:-25px;background:#56ccf2;opacity:.06"></div></div>
+    <div class="content">
+      <h2 class="section-title reveal">9. Roadmap</h2>
+      <div class="grid-2">
+        <div class="card reveal"><h3>Phase 1: Pilot</h3><p class="small">Technische Validierung eines Referenzmoduls beim ersten Industriepartner.</p></div>
+        <div class="card reveal"><h3>Phase 2: Standardisierung</h3><p class="small">100-m³-Standardmodul als wiederholbare Einheit für die ersten Standorte.</p></div>
+        <div class="card reveal"><h3>Phase 3: Großmodule</h3><p class="small">400-m³-Module für Standorte mit hohem CO₂-Strom und größerem wirtschaftlichen Hebel.</p></div>
+        <div class="card reveal"><h3>Phase 4: Netzwerk</h3><p class="small">Mehrere Industriestandorte, zentrale oder regionale Bioraffinerie, wiederkehrende Erlöse.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide slide-11" data-slide="11">
+    <div class="gradient-mesh"><div class="blob" style="width:340px;height:340px;top:-75px;right:-70px;background:#d9f99d;opacity:.08"></div><div class="blob" style="width:240px;height:240px;bottom:-40px;left:-30px;background:#2ec27e;opacity:.07"></div></div>
+    <div class="content">
+      <h2 class="section-title reveal">10. Team & Ask</h2>
+      <div class="grid-2">
+        <div class="card reveal">
+          <h3>Kernteam</h3>
+          <div class="bullet-list">
+            <div class="bullet-item"><div class="bullet-icon">👤</div><div>CEO / Business Development</div></div>
+            <div class="bullet-item"><div class="bullet-icon">🧫</div><div>CTO / Bioprozess & Stammoptimierung</div></div>
+            <div class="bullet-item"><div class="bullet-icon">⚙️</div><div>Engineering / Produktion / Betrieb</div></div>
+            <div class="bullet-item"><div class="bullet-icon">🤝</div><div>Industrie- und Produktpartnerschaften</div></div>
+          </div>
+        </div>
+        <div class="card reveal">
+          <h3>Was wir suchen</h3>
+          <div class="bullet-list">
+            <div class="bullet-item"><div class="bullet-icon">💰</div><div>Seed-Finanzierung für Pilotmodul, Bioraffinerie und Stammoptimierung.[web:391][web:393]</div></div>
+            <div class="bullet-item"><div class="bullet-icon">🏭</div><div>Pilotkunde aus Zement, Chemie oder Metallindustrie.</div></div>
+            <div class="bullet-item"><div class="bullet-icon">🧴</div><div>Abnehmer für PHA, Proteine und Pigmente.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide slide-12" data-slide="12">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:500px;height:500px;top:-110px;right:-100px;background:#2ec27e;opacity:.16"></div>
+      <div class="blob" style="width:320px;height:320px;bottom:-80px;left:-70px;background:#56ccf2;opacity:.13"></div>
+      <div class="blob" style="width:220px;height:220px;top:42%;left:16%;background:#d9f99d;opacity:.10"></div>
+    </div>
+    <canvas class="particle-canvas" style="position:absolute;inset:0;z-index:1"></canvas>
+    <div class="content">
+      <div class="pill reveal" style="justify-content:center;margin:0 auto 1rem">CarbonLoop · Closing</div>
+      <h2 class="reveal" style="font-family:'Archivo Black',sans-serif;font-size:clamp(2.5rem,5.5vw,4.6rem);line-height:.98;margin:0;background:linear-gradient(135deg,#2ec27e,#56ccf2,#d9f99d);-webkit-background-clip:text;background-clip:text;color:transparent;">CO₂ wird vom Kostenfaktor zum Rohstoffstrom.</h2>
+      <p class="reveal" style="max-width:900px;margin:1rem auto 0;color:#d3dde0;font-size:1.15rem;">CarbonLoop verbindet Dekarbonisierung, Bioproduktion und wiederkehrende Serviceerlöse in einem skalierbaren Standortmodell.</p>
+    </div>
+  </div>
+</div>
+
+<div class="nav-controls">
+  <button class="nav-btn" onclick="changeSlide(-1)">&#8249;</button>
+  <div class="slide-dots" id="dots"></div>
+  <button class="nav-btn" onclick="changeSlide(1)">&#8250;</button>
+  <span class="slide-counter" id="counter">1 / 12</span>
+</div>
+
+<script>
+let current=1;const total=document.querySelectorAll('.slide').length;const dotsContainer=document.getElementById('dots');const counter=document.getElementById('counter');
+for(let i=1;i<=total;i++){const dot=document.createElement('div');dot.className='dot'+(i===1?' active':'');dot.onclick=()=>goToSlide(i);dotsContainer.appendChild(dot)}
+function goToSlide(n){const prev=document.querySelector('.slide.active');const next=document.querySelector(`.slide[data-slide="${n}"]`);if(prev)prev.classList.remove('active');if(next){next.classList.add('active');animateSlide(next)}current=n;updateNav()}
+function changeSlide(dir){let next=current+dir;if(next<1)next=total;if(next>total)next=1;goToSlide(next)}
+function updateNav(){document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i+1===current));counter.textContent=current+' / '+total}
+document.addEventListener('keydown',(e)=>{if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();changeSlide(1)}if(e.key==='ArrowLeft'){e.preventDefault();changeSlide(-1)}});
+let touchStartX=0;document.addEventListener('touchstart',(e)=>{touchStartX=e.touches[0].clientX});document.addEventListener('touchend',(e)=>{const diff=touchStartX-e.changedTouches[0].clientX;if(Math.abs(diff)>50)changeSlide(diff>0?1:-1)});
+function animateSlide(slide){slide.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transition='none';el.style.opacity='0';el.style.transform='translateY(20px)';el.offsetHeight;const delay=i*.08;el.style.transition=`opacity .35s ease ${delay}s, transform .35s ease ${delay}s`;el.style.opacity='1';el.style.transform='translateY(0px)'})}
+document.addEventListener('mousemove',(e)=>{const spotlight=document.querySelector('.mouse-spotlight');if(spotlight){spotlight.style.background=`radial-gradient(600px circle at ${e.clientX}px ${e.clientY}px, rgba(46,194,126,0.06), transparent 40%)`}});
+window.initParticles=function(canvas,options){if(!canvas)return;const ctx=canvas.getContext('2d');canvas.width=canvas.offsetWidth;canvas.height=canvas.offsetHeight;const interactive=options.interactive!==false;const count=options.count||55;let mx=-1000,my=-1000;const particles=Array.from({length:count},()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,size:Math.random()*2.5+.8,alpha:Math.random()*.35+.1}));if(interactive){canvas.addEventListener('mousemove',(e)=>{const rect=canvas.getBoundingClientRect();mx=e.clientX-rect.left;my=e.clientY-rect.top});canvas.addEventListener('mouseleave',()=>{mx=-1000;my=-1000})}(function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach(p=>{if(interactive){const dx=p.x-mx,dy=p.y-my,dist=Math.sqrt(dx*dx+dy*dy);if(dist<120&&dist>0){const force=(120-dist)/120*2;p.vx+=(dx/dist)*force*.1;p.vy+=(dy/dist)*force*.1}}p.vx*=.98;p.vy*=.98;p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=canvas.width;if(p.x>canvas.width)p.x=0;if(p.y<0)p.y=canvas.height;if(p.y>canvas.height)p.y=0;ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fillStyle=`rgba(46,194,126,${p.alpha})`;ctx.fill()});requestAnimationFrame(animate)})()};
+document.querySelectorAll('.particle-canvas').forEach(c=>window.initParticles(c,{interactive:true,count:55}));
+try{animateSlide(document.querySelector('.slide.active'))}catch(e){}
+</script>
+</body>
+</html>
