@@ -38,9 +38,7 @@
     .slide>.content{position:relative;z-index:2;width:100%;max-width:1150px;padding:clamp(1.5rem,4vw,4rem)}
     .nav-controls{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:16px;z-index:100;background:rgba(255,255,255,.07);backdrop-filter:blur(10px);padding:10px 22px;border-radius:40px;border:1px solid rgba(255,255,255,.1)}
     .nav-btn{width:40px;height:40px;border:none;background:rgba(255,255,255,.07);color:#2ec27e;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
-    .slide-dots{display:flex;gap:8px}
-    .slide-dots .dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.18);cursor:pointer;transition:.3s}
-    .slide-dots .dot.active{background:#2ec27e;transform:scale(1.25)}
+    .slide-dots{display:flex;gap:8px}.slide-dots .dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.18);cursor:pointer;transition:.3s}.slide-dots .dot.active{background:#2ec27e;transform:scale(1.25)}
     .slide-counter{font-size:.8rem;color:#98aab0;min-width:44px;text-align:center}
     .reveal{opacity:0;transform:translateY(20px)}
     .gradient-mesh{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
@@ -60,7 +58,6 @@
     .section-title{font-family:'Archivo Black',sans-serif;font-size:clamp(2rem,4vw,3rem);line-height:1.05;margin:0 0 1rem}
     .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
     .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
-    .flow-img{width:100%;max-width:920px;border-radius:24px;border:1px solid rgba(255,255,255,.1);box-shadow:0 20px 50px rgba(0,0,0,.25)}
     .metric-box{padding:1rem 1.1rem;border-radius:20px;background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.1)}
     .bullet-list{display:flex;flex-direction:column;gap:.9rem;margin-top:1rem}
     .bullet-item{display:flex;gap:.85rem;align-items:flex-start;padding:1rem 1rem;border-left:4px solid #2ec27e;background:rgba(255,255,255,.05);border-radius:16px}
@@ -70,52 +67,62 @@
     .table-like{display:grid;grid-template-columns:1.2fr .9fr .9fr .9fr;gap:.75rem;margin-top:1rem}
     .table-like .head{font-size:.82rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#98aab0;padding:.2rem .4rem}
     .table-like .cell{padding:1rem;border-radius:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}
-    .slide-1 .content,.slide-12 .content{text-align:center}
+    .slide-1 .content,.slide-11 .content{text-align:center}
 
-    .problem-layout{
-      display:grid;
-      grid-template-columns:1.05fr .95fr;
-      gap:1.5rem;
-      align-items:stretch;
-    }
-    .problem-image-card,
-    .reactor-image-card{
+    .visual-card{
       background:rgba(255,255,255,.06);
       border:1px solid rgba(255,255,255,.1);
       backdrop-filter:blur(10px);
       border-radius:24px;
       padding:1rem;
-      box-shadow:0 16px 40px rgba(0,0,0,.22);
-      height:100%;
+      box-shadow:0 18px 45px rgba(0,0,0,.22);
     }
-    .problem-img{
+
+    .visual-img{
       width:100%;
-      height:100%;
-      min-height:420px;
-      max-height:560px;
-      object-fit:cover;
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,.08);
-    }
-    .reactor-img{
-      width:100%;
-      height:520px;
-      object-fit:cover;
+      height:420px;
+      object-fit:contain;
       object-position:center;
       border-radius:18px;
       border:1px solid rgba(255,255,255,.08);
-      box-shadow:0 20px 50px rgba(0,0,0,.28);
+      background:rgba(255,255,255,.03);
+      padding:.5rem;
     }
-    @media (max-width: 900px){
-      .problem-layout,
-      .grid-2{
+
+    .visual-img-large{
+      width:100%;
+      height:460px;
+      object-fit:contain;
+      object-position:center;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.03);
+      padding:.5rem;
+    }
+
+    .tech-layout{
+      display:grid;
+      grid-template-columns:1fr 1.1fr;
+      gap:1.25rem;
+      align-items:center;
+      margin-top:1rem;
+    }
+
+    @media (max-width: 980px){
+      .grid-2,.grid-3,.timeline,.tech-layout{
         grid-template-columns:1fr;
       }
-      .problem-img,
-      .reactor-img{
-        height:auto;
-        min-height:280px;
-        max-height:420px;
+
+      .table-like{
+        grid-template-columns:1fr;
+      }
+
+      .visual-img,.visual-img-large{
+        height:300px;
+      }
+
+      .timeline .card{
+        min-height:auto;
       }
     }
   </style>
@@ -145,30 +152,14 @@
     </div>
     <div class="content">
       <h2 class="section-title reveal">1. Problem</h2>
-
-      <div class="problem-layout">
-        <div>
-          <div class="grid-2" style="margin-bottom:1rem;">
-            <div class="card reveal">
-              <div class="kpi">CO₂ ist teuer</div>
-              <p class="small">Industrieunternehmen stehen unter Druck, Emissionen zu reduzieren und steigende CO₂-Kosten sowie ESG-Anforderungen zu managen.</p>
-            </div>
-            <div class="card reveal">
-              <div class="kpi">Rohstoffe fehlen</div>
-              <p class="small">Gleichzeitig wächst die Nachfrage nach nachhaltigen Materialien wie Bioplastik, alternativen Proteinen und natürlichen Pigmenten.</p>
-            </div>
-          </div>
-
-          <div class="bullet-list">
-            <div class="bullet-item reveal"><div class="bullet-icon">🏭</div><div>Abgase sind heute meist ein Kostenfaktor statt eine Wertquelle.</div></div>
-            <div class="bullet-item reveal"><div class="bullet-icon">♻️</div><div>Viele Lösungen reduzieren Emissionen, schaffen aber keine direkte lokale Wertschöpfung.</div></div>
-            <div class="bullet-item reveal"><div class="bullet-icon">📈</div><div>Es entsteht eine Lücke zwischen Dekarbonisierungspflicht und Bedarf an biobasierten Produkten.</div></div>
-          </div>
-        </div>
-
-        <div class="problem-image-card reveal">
-          <img class="problem-img" src="./assets/problem.jpg" alt="Industrieanlage mit Emissionen">
-        </div>
+      <div class="grid-2">
+        <div class="card reveal"><div class="kpi">CO₂ ist teuer</div><p class="small">Industrieunternehmen stehen unter Druck, Emissionen zu reduzieren und steigende CO₂-Kosten sowie ESG-Anforderungen zu managen.</p></div>
+        <div class="card reveal"><div class="kpi">Rohstoffe fehlen</div><p class="small">Gleichzeitig wächst die Nachfrage nach nachhaltigen Materialien wie Bioplastik, alternativen Proteinen und natürlichen Pigmenten.</p></div>
+      </div>
+      <div class="bullet-list">
+        <div class="bullet-item reveal"><div class="bullet-icon">🏭</div><div>Abgase sind heute meist ein Kostenfaktor statt eine Wertquelle.</div></div>
+        <div class="bullet-item reveal"><div class="bullet-icon">♻️</div><div>Viele Lösungen reduzieren Emissionen, schaffen aber keine direkte lokale Wertschöpfung.</div></div>
+        <div class="bullet-item reveal"><div class="bullet-icon">📈</div><div>Es entsteht eine Lücke zwischen Dekarbonisierungspflicht und Bedarf an biobasierten Produkten.</div></div>
       </div>
     </div>
   </div>
@@ -188,23 +179,34 @@
             <div class="bullet-item reveal"><div class="bullet-icon">🏗️</div><div>Die Biomasse wird zentral in der Bioraffinerie zu PHA, Proteinen und Pigmenten verarbeitet.</div></div>
           </div>
         </div>
-
-        <div class="reactor-image-card reveal">
-          <img class="reactor-img" src="./assets/flowchart.png" alt="Flowchart von CarbonLoop">
+        <div class="visual-card reveal">
+          <img class="visual-img-large" src="./assets/flowchart.png" alt="Flowchart des CarbonLoop-Prozesses">
         </div>
       </div>
     </div>
   </div>
 
   <div class="slide slide-4" data-slide="4">
-    <div class="gradient-mesh"><div class="blob" style="width:330px;height:330px;top:-80px;right:-80px;background:#d9f99d;opacity:.09"></div><div class="blob" style="width:220px;height:220px;bottom:-40px;left:-30px;background:#56ccf2;opacity:.06"></div></div>
+    <div class="gradient-mesh">
+      <div class="blob" style="width:330px;height:330px;top:-80px;right:-80px;background:#d9f99d;opacity:.09"></div>
+      <div class="blob" style="width:220px;height:220px;bottom:-40px;left:-30px;background:#56ccf2;opacity:.06"></div>
+    </div>
     <div class="content">
       <h2 class="section-title reveal">3. Technologie</h2>
-      <div class="grid-3">
-        <div class="card reveal"><h3>Modularer Reaktor</h3><p class="small">30-, 100- und 400-m³-Module erlauben Pilotierung und spätere Skalierung am Standort.</p></div>
-        <div class="card reveal"><h3>Hybridlicht</h3><p class="small">Tageslicht wird priorisiert; LED schaltet sich nur sensorabhängig zu, um Stromkosten zu senken.</p></div>
-        <div class="card reveal"><h3>Multiprodukt-Stamm</h3><p class="small">Ein Stamm erzeugt mehrere Wertströme: PHA, Proteine und Pigmente.</p></div>
+      <div class="tech-layout">
+        <div>
+          <div class="grid-3" style="grid-template-columns:1fr;gap:1rem;">
+            <div class="card reveal"><h3>Modularer Reaktor</h3><p class="small">30-, 100- und 400-m³-Module erlauben Pilotierung und spätere Skalierung am Standort.</p></div>
+            <div class="card reveal"><h3>Hybridlicht</h3><p class="small">Tageslicht wird priorisiert; LED schaltet sich nur sensorabhängig zu, um Stromkosten zu senken.</p></div>
+            <div class="card reveal"><h3>Multiprodukt-Stamm</h3><p class="small">Ein Stamm erzeugt mehrere Wertströme: PHA, Proteine und Pigmente.</p></div>
+          </div>
+        </div>
+
+        <div class="visual-card reveal">
+          <img class="visual-img" src="./assets/reaktor.png" alt="Reaktor von CarbonLoop">
+        </div>
       </div>
+
       <div class="grid-3" style="margin-top:1rem;">
         <div class="card reveal"><h3>Monitoring</h3><p class="small">CarbonLoop steuert Licht, CO₂-Eintrag, Temperatur und Ernteintervalle digital.</p></div>
         <div class="card reveal"><h3>Bioraffinerie</h3><p class="small">Die abgezogene Biomasse wird separiert und weiterveredelt zu marktfähigen Produkten.</p></div>
