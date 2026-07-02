@@ -38,7 +38,9 @@
     .slide>.content{position:relative;z-index:2;width:100%;max-width:1150px;padding:clamp(1.5rem,4vw,4rem)}
     .nav-controls{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:16px;z-index:100;background:rgba(255,255,255,.07);backdrop-filter:blur(10px);padding:10px 22px;border-radius:40px;border:1px solid rgba(255,255,255,.1)}
     .nav-btn{width:40px;height:40px;border:none;background:rgba(255,255,255,.07);color:#2ec27e;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
-    .slide-dots{display:flex;gap:8px}.slide-dots .dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.18);cursor:pointer;transition:.3s}.slide-dots .dot.active{background:#2ec27e;transform:scale(1.25)}
+    .slide-dots{display:flex;gap:8px}
+    .slide-dots .dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.18);cursor:pointer;transition:.3s}
+    .slide-dots .dot.active{background:#2ec27e;transform:scale(1.25)}
     .slide-counter{font-size:.8rem;color:#98aab0;min-width:44px;text-align:center}
     .reveal{opacity:0;transform:translateY(20px)}
     .gradient-mesh{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
@@ -69,6 +71,53 @@
     .table-like .head{font-size:.82rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#98aab0;padding:.2rem .4rem}
     .table-like .cell{padding:1rem;border-radius:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}
     .slide-1 .content,.slide-12 .content{text-align:center}
+
+    .problem-layout{
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:1.5rem;
+      align-items:stretch;
+    }
+    .problem-image-card,
+    .reactor-image-card{
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.1);
+      backdrop-filter:blur(10px);
+      border-radius:24px;
+      padding:1rem;
+      box-shadow:0 16px 40px rgba(0,0,0,.22);
+      height:100%;
+    }
+    .problem-img{
+      width:100%;
+      height:100%;
+      min-height:420px;
+      max-height:560px;
+      object-fit:cover;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .reactor-img{
+      width:100%;
+      height:520px;
+      object-fit:cover;
+      object-position:center;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow:0 20px 50px rgba(0,0,0,.28);
+    }
+    @media (max-width: 900px){
+      .problem-layout,
+      .grid-2{
+        grid-template-columns:1fr;
+      }
+      .problem-img,
+      .reactor-img{
+        height:auto;
+        min-height:280px;
+        max-height:420px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -90,26 +139,48 @@
   </div>
 
   <div class="slide slide-2" data-slide="2">
-    <div class="gradient-mesh"><div class="blob" style="width:360px;height:360px;top:-80px;right:-60px;background:#2ec27e;opacity:.08"></div><div class="blob" style="width:240px;height:240px;bottom:-50px;left:-40px;background:#56ccf2;opacity:.07"></div></div>
+    <div class="gradient-mesh">
+      <div class="blob" style="width:360px;height:360px;top:-80px;right:-60px;background:#2ec27e;opacity:.08"></div>
+      <div class="blob" style="width:240px;height:240px;bottom:-50px;left:-40px;background:#56ccf2;opacity:.07"></div>
+    </div>
     <div class="content">
       <h2 class="section-title reveal">1. Problem</h2>
-      <div class="grid-2">
-        <div class="card reveal"><div class="kpi">CO₂ ist teuer</div><p class="small">Industrieunternehmen stehen unter Druck, Emissionen zu reduzieren und steigende CO₂-Kosten sowie ESG-Anforderungen zu managen.</p></div>
-        <div class="card reveal"><div class="kpi">Rohstoffe fehlen</div><p class="small">Gleichzeitig wächst die Nachfrage nach nachhaltigen Materialien wie Bioplastik, alternativen Proteinen und natürlichen Pigmenten.</p></div>
-      </div>
-      <div class="bullet-list">
-        <div class="bullet-item reveal"><div class="bullet-icon">🏭</div><div>Abgase sind heute meist ein Kostenfaktor statt eine Wertquelle</div></div>
-        <div class="bullet-item reveal"><div class="bullet-icon">♻️</div><div>Viele Lösungen reduzieren Emissionen, schaffen aber keine direkte lokale Wertschöpfung.</div></div>
-        <div class="bullet-item reveal"><div class="bullet-icon">📈</div><div>Es entsteht eine Lücke zwischen Dekarbonisierungspflicht und Bedarf an biobasierten Produkten.</div></div>
+
+      <div class="problem-layout">
+        <div>
+          <div class="grid-2" style="margin-bottom:1rem;">
+            <div class="card reveal">
+              <div class="kpi">CO₂ ist teuer</div>
+              <p class="small">Industrieunternehmen stehen unter Druck, Emissionen zu reduzieren und steigende CO₂-Kosten sowie ESG-Anforderungen zu managen.</p>
+            </div>
+            <div class="card reveal">
+              <div class="kpi">Rohstoffe fehlen</div>
+              <p class="small">Gleichzeitig wächst die Nachfrage nach nachhaltigen Materialien wie Bioplastik, alternativen Proteinen und natürlichen Pigmenten.</p>
+            </div>
+          </div>
+
+          <div class="bullet-list">
+            <div class="bullet-item reveal"><div class="bullet-icon">🏭</div><div>Abgase sind heute meist ein Kostenfaktor statt eine Wertquelle.</div></div>
+            <div class="bullet-item reveal"><div class="bullet-icon">♻️</div><div>Viele Lösungen reduzieren Emissionen, schaffen aber keine direkte lokale Wertschöpfung.</div></div>
+            <div class="bullet-item reveal"><div class="bullet-icon">📈</div><div>Es entsteht eine Lücke zwischen Dekarbonisierungspflicht und Bedarf an biobasierten Produkten.</div></div>
+          </div>
+        </div>
+
+        <div class="problem-image-card reveal">
+          <img class="problem-img" src="./assets/problem.jpg" alt="Industrieanlage mit Emissionen">
+        </div>
       </div>
     </div>
   </div>
 
   <div class="slide slide-3" data-slide="3">
-    <div class="gradient-mesh"><div class="blob" style="width:380px;height:380px;top:-70px;right:-90px;background:#56ccf2;opacity:.08"></div><div class="blob" style="width:260px;height:260px;bottom:-60px;left:-30px;background:#2ec27e;opacity:.07"></div></div>
+    <div class="gradient-mesh">
+      <div class="blob" style="width:380px;height:380px;top:-70px;right:-90px;background:#56ccf2;opacity:.08"></div>
+      <div class="blob" style="width:260px;height:260px;bottom:-60px;left:-30px;background:#2ec27e;opacity:.07"></div>
+    </div>
     <div class="content">
       <h2 class="section-title reveal">2. Lösung</h2>
-      <div class="grid-2" style="align-items:center;">
+      <div class="grid-2" style="align-items:center;gap:1.5rem;">
         <div>
           <div class="bullet-list">
             <div class="bullet-item reveal"><div class="bullet-icon">🧪</div><div>CarbonLoop installiert modulare Photobioreaktoren direkt beim Industriekunden.</div></div>
@@ -117,8 +188,9 @@
             <div class="bullet-item reveal"><div class="bullet-icon">🏗️</div><div>Die Biomasse wird zentral in der Bioraffinerie zu PHA, Proteinen und Pigmenten verarbeitet.</div></div>
           </div>
         </div>
-        <div class="card reveal">
-          <img class="flow-img" src="/.assets/reaktor.png" alt="Reaktorbild">
+
+        <div class="reactor-image-card reveal">
+          <img class="reactor-img" src="./assets/flowchart.png" alt="Flowchart von CarbonLoop">
         </div>
       </div>
     </div>
@@ -244,8 +316,6 @@
       </div>
     </div>
   </div>
-
-
 
   <div class="slide slide-11" data-slide="11">
     <div class="gradient-mesh">
